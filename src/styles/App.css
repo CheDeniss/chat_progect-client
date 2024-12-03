@@ -1,0 +1,11 @@
+.app{
+    background-color: darkolivegreen;
+    width: 100vw;
+    height: calc(100vh - 56px);
+    box-sizing: border-box;
+}
+
+.app-body {
+    display: flex;
+    height: 100%;
+}
