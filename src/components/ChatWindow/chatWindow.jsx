@@ -14,7 +14,6 @@ const ChatWindow = ({activeChat}) => {
 
     return (
         <div className="chat-window">
-            {/*<button onClick={() => showError("Якась помилка")}>Ерорр</button>*/}
             <MessagesList activeChat={activeChat} />
             <MessageInput activeChat={activeChat} />
         </div>

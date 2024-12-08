@@ -3,11 +3,11 @@ import SearchAndMenuBar from "./searchAndMenuBar.jsx";
 import ContactsList from "./contactsList.jsx";
 import "../../styles/leftSideBar.css";
 
-const LeftSideBar = ({activeChat, setActiveChat, setIsAuthenticated}) => {
+const LeftSideBar = ({ setActiveChat, setIsAuthenticated}) => {
     return(
         <div className="left-side-bar">
             <SearchAndMenuBar setIsAuthenticated={setIsAuthenticated}/>
-            <ContactsList activeChat={activeChat} setActiveChat={setActiveChat} />
+            <ContactsList setActiveChat={setActiveChat} />
         </div>);
 };
 

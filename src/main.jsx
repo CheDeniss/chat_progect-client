@@ -7,9 +7,9 @@ import {ErrorProvider} from "./components/ErrorModal/errorContext.jsx";
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  //<StrictMode>
       <ErrorProvider>
         <App />
       </ErrorProvider>
-  </StrictMode>,
+  //</StrictMode>,
 )

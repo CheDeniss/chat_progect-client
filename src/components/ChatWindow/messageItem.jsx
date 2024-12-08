@@ -4,7 +4,7 @@ import socketService from "../../services/socketService.js";
 
 const MessageItem = ({ activeChat, message, isMyMessage }) => {
     //console.log('message - MessageItem', message);
-    console.log('isSender - MessageItem', isMyMessage);
+    //console.log('isSender - MessageItem', isMyMessage);
 
     const handleDelete = () => {
         console.log('delete');

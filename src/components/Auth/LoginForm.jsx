@@ -2,7 +2,7 @@ import socketService from "../../services/socketService.js";
 import { useEffect, useState } from "react";
 import "../../styles/loginForm.css";
 
-const LoginForm = ({ setIsAuthenticated }) => {
+const LoginForm = ({ setIsAuthenticated, setTilteName }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [eMail, setEMail] = useState('');
@@ -26,7 +26,6 @@ const LoginForm = ({ setIsAuthenticated }) => {
             }
         });
 
-        // Очищення обробника при розмонтуванні
         return () => {
             socketService.off('login');
         };

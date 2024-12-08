@@ -26,9 +26,10 @@ const UserManagement = ({setIsAuthenticated}) => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsAuthenticated(false);
+        socketService.send("logout", {});
         socketService.disconnect();
         console.log("Вихід із системи");
-    };
+    }; 
 
     const handleShowMenu = () => {
         setShowMenu((prevState) => !prevState);

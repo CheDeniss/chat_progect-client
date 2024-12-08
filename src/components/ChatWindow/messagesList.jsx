@@ -14,9 +14,13 @@ const MessagesList = ({ activeChat }) => {
         };
 
         const handleNewMessage = (newMessage) => {
-            console.log("newMessage", newMessage)
-            if (newMessage.data.receiver_id === activeChat.id || newMessage.data.chat_room_id === activeChat.id) {
+            //console.log("newMessage7777777", newMessage)
+            //console.log("activeChat.id", activeChat.id);
+            if (newMessage.data.receiver_id === activeChat.id ||
+                newMessage.data.sender_id === activeChat.id ||
+                newMessage.data.chat_room_id === activeChat.id) {
                 setMessages((prevMessages) => [...prevMessages, newMessage.data]);
+                //console.log("newMessage.data", newMessage.data);
             }
         };
 
