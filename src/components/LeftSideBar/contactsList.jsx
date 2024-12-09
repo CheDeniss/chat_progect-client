@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ContactItem from "./contactItem.jsx";
 import socketService from "../../services/socketService.js";
+import "../../styles/contactList.css";
 
 const ContactsList = ({ setActiveChat }) => {
     const [contacts, setContacts] = useState([]);
@@ -35,7 +36,7 @@ const ContactsList = ({ setActiveChat }) => {
     const updateContactMessagePreview = (data) => {
         setContacts((prevContacts) => {
             const updatedContacts = prevContacts.map((contact) => {
-                if (contact.id === data.sender_id) {
+                if (contact.id === data.sender_id || contact.id === data.receiver_id) {
                     return { ...contact, lastMessage: data.message }; // Оновлюємо попередній перегляд повідомлення
                 }
                 return contact;
@@ -66,7 +67,7 @@ const ContactsList = ({ setActiveChat }) => {
     }, []);
 
     return (
-        <div className="list-group">
+        <div className="list-group contact-list">
             {contacts.map((contact) => (
                 <ContactItem
                     key={contact.id}

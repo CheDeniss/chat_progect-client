@@ -1,0 +1,21 @@
+.contact-item-container{
+}
+
+.last-message {
+  font-size: 1rem;
+    max-height: 35px;
+  color: #666;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.contact-name{
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+small{
+    height: fit-content;
+}

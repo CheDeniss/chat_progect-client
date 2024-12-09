@@ -72,7 +72,7 @@ function App() {
         const token = localStorage.getItem('token');
         const decoded = validateToken(token);
 
-        if (decoded) {
+        if (token) {
             setIsAuthenticated(true);
             initializeWebSocket(token)
                 .then(() => {
@@ -90,9 +90,29 @@ function App() {
 
             localStorage.removeItem('token');
             setIsAuthenticated(false);
-            showError('Сесія закінчилася або токен недійсний. Авторизуйтеся знову.');
         }
-    }, [validateToken, getUserData, showError]);
+
+        const handleTokenInvalid = (data) => {
+            console.log("handleTokenInvalid", data);
+            console.error(data.data.message);
+            localStorage.removeItem('token');
+
+            new Promise((resolve) => {
+                showError("Сесія закінчилася. Авторизуйтеся знову.", resolve);
+            }).then(() => {
+                setIsAuthenticated(false);
+                if (!socketService.isConnected()) {
+                    socketService.connect();
+                }
+            });
+        };
+
+        socketService.on("tokenInvalid", handleTokenInvalid);
+
+        return () => {
+            socketService.off("tokenInvalid", handleTokenInvalid);
+        };
+    }, [validateToken, getUserData, isAuthenticated]);
 
     useEffect(() => {
         if (title) {
@@ -101,7 +121,7 @@ function App() {
     }, [title, activeChat]);
 
     if (!isAuthenticated) {
-        return <LoginForm setIsAuthenticated={setIsAuthenticated} />;
+        return <LoginForm setIsAuthenticated={setIsAuthenticated} setActiveChat={setActiveChat}/>;
     }
 
     if (!isWebSocketReady || !authUserData) {
@@ -110,9 +130,9 @@ function App() {
 
     return (
         <div className="app">
-            <Header activeChat={activeChat} setIsAuthenticated={setIsAuthenticated} />
+            <Header authUserData={authUserData} activeChat={activeChat} setIsAuthenticated={setIsAuthenticated} />
             <div className="app-body">
-                <LeftSideBar setActiveChat={setActiveChat} setIsAuthenticated={setIsAuthenticated} />
+                <LeftSideBar authUserData={authUserData} setActiveChat={setActiveChat} setIsAuthenticated={setIsAuthenticated} />
                 <ChatWindow activeChat={activeChat} />
             </div>
         </div>

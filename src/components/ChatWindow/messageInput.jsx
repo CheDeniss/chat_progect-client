@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "../../styles/messageInput.css";
 import socketService from "../../services/socketService";
 
@@ -19,6 +19,10 @@ const MessageInput = ({ activeChat }) => {
             setMessage(''); // Очищуємо поле після відправлення
         }
     };
+
+    useEffect(() => {
+        setMessage(''); // Занулюємо текст при зміні activeChat
+    }, [activeChat]);
 
 
 return (

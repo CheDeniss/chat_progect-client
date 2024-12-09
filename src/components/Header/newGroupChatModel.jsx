@@ -52,14 +52,22 @@ const NewGroupChatModal = () => {
         };
 
         socketService.send("createGroup", groupData);
+
+        const handleGroupCreated = (data) => {
+            console.log("Групу створено:", data);
+            socketService.off("groupCreated", handleGroupCreated);
+
+            socketService.send("getUsers", {});
+        };
+
+        socketService.on("groupCreated", handleGroupCreated);
     };
 
     return (
         <>
             {/* Перше модальне вікно */}
-
             <div className="modal fade"
-                 id="exampleModalToggle"
+                 id="newGroupChatModalToggle"
                  aria-hidden="true"
                  aria-labelledby="exampleModalToggleLabel"
                  tabIndex="-1"

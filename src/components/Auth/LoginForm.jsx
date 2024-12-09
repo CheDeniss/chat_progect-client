@@ -2,14 +2,13 @@ import socketService from "../../services/socketService.js";
 import { useEffect, useState } from "react";
 import "../../styles/loginForm.css";
 
-const LoginForm = ({ setIsAuthenticated, setTilteName }) => {
+const LoginForm = ({ setIsAuthenticated, setActiveChat }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [eMail, setEMail] = useState('');
     const [isRegistering, setIsRegistering] = useState(false);
 
     useEffect(() => {
-        // Реєструємо глобальний обробник для 'login'
         socketService.on('login', (data) => {
             if (data.status === 'success') {
                 const token = data.data.token;
@@ -32,6 +31,7 @@ const LoginForm = ({ setIsAuthenticated, setTilteName }) => {
     }, [setIsAuthenticated]);
 
     const handleLogin = async (credentials) => {
+        setActiveChat(null);
         socketService.send("login", {
             userName: credentials.userName,
             password: credentials.password
@@ -39,6 +39,7 @@ const LoginForm = ({ setIsAuthenticated, setTilteName }) => {
     };
 
     const handleRegister = async (credentials) => {
+        setActiveChat(null);
         socketService.send("register", {
             userName: credentials.userName,
             password: credentials.password,

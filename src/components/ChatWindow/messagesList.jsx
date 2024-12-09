@@ -34,7 +34,10 @@ const MessagesList = ({ activeChat }) => {
         socketService.on("newMessage", handleNewMessage);
         socketService.on("messageDeleted", handleMessageDeleted);
 
-        socketService.send("getMessages", { chatId: activeChat.id, isGroup: activeChat.isGroup});
+        socketService.send("getMessages", {
+            chatId: activeChat.id,
+            isGroup: activeChat.isGroup
+        });
 
         return () => {
             socketService.off("setMessages", handleSetMessages);
@@ -52,7 +55,7 @@ const MessagesList = ({ activeChat }) => {
     }, [messages]); // Скролл до низу при зміні масиву повідомлень
 
 
-console.log("messages messList", messages);
+    //console.log("messages messList", messages);
     return (
         <div className="messages-list">
             {messages.map((msg) => (
