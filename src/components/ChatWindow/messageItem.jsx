@@ -15,7 +15,8 @@ const MessageItem = ({ activeChat, message, isMyMessage }) => {
         <div className={`message-item ${isMyMessage === "1" ? "message-receiver" : "message-sender"} message-item-container`}>
             <div className="message-meta">
                 {isMyMessage === "0" ? <b className="message-author ">{message.senderName}</b> : <b className="message-author "> </b>}
-                <button onClick={handleDelete} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                {isMyMessage === "1" &&
+                    <button onClick={handleDelete} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>}
             </div>
             <p className={`message-text-${isMyMessage === "1" ? "me" : "notme"}`}>
                 {message.message}

@@ -18,17 +18,6 @@ function App() {
     const [isWebSocketReady, setIsWebSocketReady] = useState(false); // Стан готовності WebSocket
     const { showError } = useError();
 
-    const validateToken = useCallback((token) => {
-        try {
-            const decoded = jwtDecode(token);
-            const currentTime = Math.floor(Date.now() / 1000);
-            if (decoded.exp < currentTime) throw new Error("Термін дії токена сплив");
-            return decoded;
-        } catch {
-            return null;
-        }
-    }, []);
-
     const initializeWebSocket = (token) => {
         console.log(" initializeWebSocket(token)")
         return new Promise((resolve, reject) => {
@@ -70,7 +59,6 @@ function App() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const decoded = validateToken(token);
 
         if (token) {
             setIsAuthenticated(true);
@@ -112,7 +100,7 @@ function App() {
         return () => {
             socketService.off("tokenInvalid", handleTokenInvalid);
         };
-    }, [validateToken, getUserData, isAuthenticated]);
+    }, [getUserData, isAuthenticated]);
 
     useEffect(() => {
         if (title) {

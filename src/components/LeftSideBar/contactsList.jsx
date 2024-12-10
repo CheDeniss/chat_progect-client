@@ -45,6 +45,10 @@ const ContactsList = ({ setActiveChat }) => {
         });
     }
 
+    const handleMessageWasDeleted = (messageId) => {
+        fetchContacts();
+    };
+
     useEffect(() => {
         fetchContacts();
 
@@ -58,11 +62,14 @@ const ContactsList = ({ setActiveChat }) => {
             updateContactsStatus(data.data);
         });
 
+        socketService.on("messageDeleted", handleMessageWasDeleted);
+
         return () => {
             socketService.off("setUsers");
             socketService.off("setGroups");
             socketService.off("userStatusChanged");
             socketService.off("newMessage");
+            socketService.off("messageDeleted");
         };
     }, []);
 
